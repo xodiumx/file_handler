@@ -22,3 +22,8 @@ class File(models.Model):
         null=False,
         default=False,
     )
+
+    class Meta:
+        verbose_name = 'Файл'
+        verbose_name_plural = 'Файлы'
+        ordering = ('uploaded_at',)
