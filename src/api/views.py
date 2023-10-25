@@ -7,11 +7,11 @@ from .serializers import FileSerializer, UploadSerializer
 
 
 class UploadViewSet(CreateModelMixin, GenericViewSet):
-    
+
     http_method_names = ('post',)
     serializer_class = UploadSerializer
 
-    
+
 class FileViewSet(ListModelMixin, GenericViewSet):
 
     queryset = File.objects.all()

@@ -9,7 +9,13 @@ from files.models import File
 # TODO: написать обработчики файлов
 @app.task
 def files_handler(id: int) -> str:
-
+    """
+    - Берем файл по его id
+    - Определяем его тип
+    - Взависимости от типа файла, производим обработку
+    - Если файл обработан успешно
+      изменяем поле - processed, объекта(instance) файла на True
+    """
     instance = get_object_or_404(File, id=id)
 
     file_name = instance.file.name
@@ -33,4 +39,3 @@ def files_handler(id: int) -> str:
     instance.processed = True
     instance.save()
     return f'Обработка файла {file_name} успешно завершена'
-    

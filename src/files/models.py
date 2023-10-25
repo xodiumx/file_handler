@@ -5,6 +5,10 @@ from django.db import models
 
 class File(models.Model):
     """
+    Модель File:
+        - file: поле для загрузки файла
+        - uploaded_at: текущая дата загрузки файла в бд
+        - processed: поле для проверки обработан ли файл
     """
     file = models.FileField(
         'Файл',

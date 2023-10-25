@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import UploadViewSet, FileViewSet
+from .views import FileViewSet, UploadViewSet
 
 router_v1 = DefaultRouter()
 router_v1.register('upload', UploadViewSet, basename='upload')
