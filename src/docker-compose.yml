@@ -66,8 +66,35 @@ services:
       - media_volume:/var/html/media/
     depends_on:
       - back
+  
+  celery-worker:
+    container_name: celery-worker
+    image: oxdium/file_handler:latest
+    volumes:
+      - celery_volume:/usr/src/app/
+    depends_on:
+      - redis
+      - back
+    command: celery -A file_handler worker --loglevel=info
+    env_file:
+      - ./.env
+
+  celery-flower:
+    container_name: celery-flower
+    image: oxdium/file_handler:latest
+    volumes:
+      - celery_volume:/usr/src/app/
+    depends_on:
+      - redis
+      - back
+    ports:
+      - 5555:5555
+    command: celery -A file_handler flower worker --url_prefix=flower --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+    env_file:
+      - ./.env
 
 volumes:
+  celery_volume:
   database:
   redis_volume:
   pgadmin:
