@@ -37,8 +37,39 @@ services:
       - '5050:80'
     env_file:
       - ./.env
+    
+  back:
+    build: 
+      dockerfile: ./docker/handler/Dockerfile
+      context: .
+    restart: always
+    image: oxdium/file_handler:latest
+    command: ['/app/docker/handler/entrypoint_app.sh']
+    container_name: back
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - static_volume:/app/static/
+      - media_volume:/app/media/
+    env_file:
+      - ./.env
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.21.3-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/var/html/static/
+      - media_volume:/var/html/media/
+    depends_on:
+      - back
 
 volumes:
   database:
   redis_volume:
   pgadmin:
+  static_volume:
+  media_volume:
