@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from file_handler.celery import app
 from files.models import File
 
+from .services import Handlers
+
 
 # TODO: написать обработчики файлов
 @app.task
@@ -25,14 +27,11 @@ def files_handler(id: int) -> str:
 
     try:
         if mime_type == 'image':
-            """Обработка картинок."""
-            ...
+            Handlers.image_handler(instance)
         if mime_type == 'text':
-            """Обработка текстовых файлов."""
-            ...
+            Handlers.text_handler(instance)
         if mime_type == 'audio':
-            """Обработка звуковых файлов."""
-            ...
+            Handlers.audio_handler(instance)
     except Exception as er:
         return f'Возникла ошибка при обработке файла {er}'
 
