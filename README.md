@@ -70,3 +70,8 @@ docker-compose up -d
 - `localhost/api/v1/files` - эндпоинт для получения информации о всех файлах
 - `localhost:5050/` - `pgadmin` эндпоинт
 - `localhost:5555/flower/` - `flower` эндпоинт
+
+
+## Tests
+
+Тесты запускаются из директории `src` командой - `pytest --cov=.` - процент покрытия - `78 %`
